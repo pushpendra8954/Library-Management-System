@@ -1,0 +1,87 @@
+{%block body%}
+{%load static%}
+<link rel="stylesheet" href="{% static 'add1.css' %}">
+<div class="formbold-main-wrapper">
+    <!-- Author: FormBold Team -->
+    <!-- Learn More: https://formbold.com -->
+    <div class="formbold-form-wrapper">
+      
+      <img style="height:300px;width:500px" src="static/book.png">
+      <form action="/add_book" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="formbold-form-title">
+          <h2 class="">Add A Book</h2>
+        </div>
+  
+        <div class="formbold-input-flex">
+          <div>
+            <label for="book_isbn" class="formbold-form-label">
+              Book ISBN
+            </label>
+            <input
+              type="text"
+              name="book_isbn"
+              id="book_isbn"
+              class="formbold-form-input"
+            />
+          </div>
+        </div>
+  
+        <div class="formbold-input-flex">
+          <div>
+            <label for="book_name" class="formbold-form-label"> Book Name </label>
+            <input
+              type="text"
+              name="book_name"
+              id="book_name"
+              class="formbold-form-input"
+            />
+          </div>
+        </div>
+  
+        <div class="formbold-mb-3">
+          <label for="pub_date" class="formbold-form-label">
+            Publishing Date
+          </label>
+          <input
+            type="date"
+            name="pub_date"
+            id="pub_date"
+            class="formbold-form-input"
+          />
+        </div>
+  
+        <div class="formbold-input-flex">
+          <div>
+            <label for="book_price" class="formbold-form-label"> Rental Price </label>
+            <input
+              type="text"
+              name="book_price"
+              id="book_price"
+              class="formbold-form-input"
+            />
+          </div>
+        </div>
+            <label for="book_des" class="formbold-form-label"> Other Description </label>
+            <input
+              type="phone"
+              name="book_des"
+              id="book_des"
+              class="formbold-form-input"
+            />
+            <br></br>
+          <div>
+            <label for="image" style="font-family: 'Inter', sans-serif;color: #536387;font-size: 16px;"> Choose A Image</label>
+            <br></br>
+            <input
+              type="file"
+              name="image"
+              id="image"
+            />
+          </div>
+        <button class="formbold-btn">Add Now</button>
+      </form>
+    </div>
+  </div>
+  {% endblock body%}
+  

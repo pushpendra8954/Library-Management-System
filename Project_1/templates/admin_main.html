@@ -1,0 +1,41 @@
+<html>
+<head>
+{%load static%}
+<link rel="stylesheet" href="{% static 'admin.css' %}">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+<style>
+h3{
+    height: 100%;
+    font-family: "Montserrat", sans-serif;
+    color:white;
+    font-size:25;
+    font-weight:200;
+  }
+body{
+  background-color:black;
+  font-family: "Montserrat", sans-serif;
+}
+</style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Library Management System</a>
+  </div>
+  <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
+    <li class="nav-item mx-3">
+      <button type="button" class="btn btn-primary btn-sm"><a class="nav-link" href="/logoutuser">Logout</a></button>
+    </li>
+  </ul>
+</nav>
+<nav class="navMenu">
+  <a href="/add_book">Add A Book</a>
+  <a href="/show_books_admin">Show Books</a>
+  <a href="remove">Remove A Book</a>
+  <a href="/about_admin">About</a>
+  <div class="dot"></div>
+</nav>
+{%block body%}{%endblock body%}
+{%block js%}{%endblock%}
+</body>
+</html>

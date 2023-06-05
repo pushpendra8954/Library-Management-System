@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}Student Log In {% endblock title %}
+{%block body%}
+{%load static%}
+<link rel="stylesheet" href="{% static 'style1.css' %}">
+<script src="{% static 'style_1.js' %}"></script>
+<div class='box'>
+  <div class='box-form'>
+    <div class='box-login-tab'></div>
+    <div class='box-login-title'>
+      <div class='i i-login'></div><h2>STUDENT LOGIN</h2>
+    </div>
+    <div class='box-login'>
+      <div class='fieldset-body' id='login_form'>
+      <button onclick="openLoginInfo();" class='b b-form i i-more' title='Mais Informações'></button>
+      <form method="post" action="/loginuser" class="row g-3 needs-validation" novalidate style="margin:5px auto">
+      {% csrf_token %}
+        <p class='field'>
+          <label for='username'>Username</label>
+          <input type='text' id='username' name='username' title='Username'/>
+          <span id='valida' class='i i-warning'></span>
+        </p>
+      	  <p class='field'>
+          <label for='password'>PASSWORD</label>
+          <input type='password' id='password' name='password' title='Password' />
+          <span id='valida' class='i i-close'></span>
+        </p>
+        	<input type='submit' id='do_login' value='LOGIN' title='LOGIN' />
+      </div>
+    </div>
+  </div>
+</form>
+  <div class='box-info'>
+              <button onclick="" class='b-cta' title='Sign up now!'><a class="nav-link" href="/createacc">CREATE ACCOUNT</a></button>
+  				</div>
+        </form>
+</div>
+{%endblock body%}

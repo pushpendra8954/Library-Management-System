@@ -1,0 +1,139 @@
+{% extends 'base.html' %} 
+{% block title %} Checkout {% endblock title %}
+{%block body%}
+<div class="container">
+    {% if user.is_authenticated %}
+    <div class="col-sm-12 empty-cart-cls text-center my-2">
+    <h3>Your Cart Items</h3>
+    <button class="btn btn-secondary cart1 float-right">Clear Cart</button>
+    <ul class="list-group my-4" id="items">
+    </ul>
+  </div>
+    <div>
+    <section class="vh-100">
+      <div class="container h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+          <div class="col-lg-12 col-xl-11">
+            <div class="card text-black" style="border-radius: 25px;">
+              <div class="card-body p-md-5">
+                <div class="row justify-content-center">
+                  <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
+    
+                    <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Enter Your Details</p>
+    
+                    <form action="/checkout" method="post" class="mx-1 mx-md-4">
+                      {% csrf_token %}
+                      <div class="d-flex flex-row align-items-center mb-4">
+                          <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                          <div class="form-outline flex-fill mb-0">
+                            <input type="text" id="your_name" name="your_name" class="form-control" />
+                            <label class="form-label" for="your_name">Your Name</label>
+                          </div>
+                        </div>
+    
+                      <div class="d-flex flex-row align-items-center mb-4">
+                        <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
+                        <div class="form-outline flex-fill mb-0">
+                          <input type="email" id="your_email" name="your_email" class="form-control" />
+                          <label class="form-label" for="your_email">Your Email</label>
+                        </div>
+                      </div>
+                      <div class="d-flex flex-row align-items-center mb-4">
+                        <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
+                        <div class="form-outline flex-fill mb-0">
+                          <input type="date" id="cust_date" name="cust_date" class="form-control" />
+                          <label class="form-label" for="cust_date">Issuing Date</label>
+                        </div>
+                      </div>
+                      <div class="d-flex flex-row align-items-center mb-4">
+                        <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
+                        <div class="form-outline flex-fill mb-0">
+                          <input type="phone" id="your_phone" name="your_phone" class="form-control" />
+                          <label class="form-label" for="your_phone">Your Phone No.</label>
+                        </div>
+                      </div>
+                      <div class="d-flex flex-row align-items-center mb-4">
+                        <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
+                        <div class="form-outline flex-fill mb-0">
+                          <input type="phone" id="your_days" name="your_days" class="form-control" />
+                          <label class="form-label" for="your_days">Total No. Of Days,You Keep The Book</label>
+                        </div>
+                      </div>
+                      <div class="d-flex flex-row align-items-center mb-4">
+                        <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
+                        <div class="form-outline flex-fill mb-0">
+                          <label class="form-label text-center" style="color:#0c264f;" for="your_days">Per Day Total Rent Is:<span id="totalprice"></span></label>
+                        </div>
+                      </div>
+    
+                      <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4 cart1">
+                        <a><button type="submit" class="btn btn-primary btn-lg">Confirm Order</button><a>
+                      </div>
+    
+                    </form>
+    
+                  </div>
+                  <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
+    
+                    <img src="/media/WHAT-IS-THE-PURPOSE-OF-A-LIBRARY-MANAGEMENT-SYSTEM-min.png"
+                      class="img-fluid" alt="Sample image">
+    
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+      {% else %}
+        <div class="alert alert-warning" role="alert">
+            Please Login First!
+          </div>
+      {% endif %}
+{%endblock body%}
+{% block js %}
+<script>
+  if(localStorage.getItem('cart')==null)
+  {
+    var cart={};
+  }
+  else
+  {
+    cart=JSON.parse(localStorage.getItem('cart'));
+  }
+var sum = 0;
+var totalprice = 0;
+if ($.isEmptyObject(cart))
+{
+    //if object is empty
+  mystr = `<p>Your cart is empty, please add some items to your cart before checking out!</p>`
+  $('#items').append(mystr);
+}
+for(item in cart)
+{
+  let itemprice=cart[item][2];
+  let name=cart[item][1];
+  let qty=cart[item][0];
+  sum=sum+qty;
+  totalprice=totalprice+qty*itemprice;
+  mystr=`<center><li class="list-group-item col-sm-3 text-center" style="background-color: black; color: white;">${name}</li></center><br>`
+  $('#items').append(mystr);
+  console.log(cart);
+}
+document.getElementById('cart').innerHTML=sum;
+document.getElementById('totalprice').innerHTML=totalprice;
+  $('.cart1').click(function()
+  {
+    cart=JSON.parse(localStorage.getItem('cart'));
+    localStorage.clear();
+    cart={};
+    localStorage.setItem('cart',JSON.stringify(cart));
+    document.getElementById('cart').innerHTML=Object.keys(cart).length;
+    location.reload(true);
+  });
+  
+</script>
+{% endblock %}
